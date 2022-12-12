@@ -1,26 +1,39 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div id="app">
+    <h1>Calculator</h1>
+    <div>
+      <input type="text" v-model="input" />
+      <br />
+      <button v-for="op in operators" :key="op.i" @click="updateInput(op)">{{op}}</button>
+    </div>
+    <br />
+    <div>
+      <button v-on:click="calculate()">=</button>
+    </div>
+    <br />
+    <div>
+      Result: {{ result }}
+    </div>
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
+  name: 'app',
+  data() {
+    return {
+      input: '',
+      result: '',
+      operators: ['+', '-', '*', '/']
+    }
+  },
+  methods: {
+    updateInput(op) {
+      this.input += op;
+    },
+    calculate() {
+      this.result = eval(this.input);
+    }
   }
 }
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
